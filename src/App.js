@@ -2,30 +2,31 @@
 import './App.css';
 
 import Home from './Home';
+import Department from './Department';
+import Employee from './Employee';
+import Navigation from './Navigation';
+
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
+    <BrowserRouter>
+      <div className='container'>
 
-    <Home 
-    
-    />
+        <h3 className='m-3 d-flex justify-content-center'>
+          React JS Tutorial
+        </h3>
 
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
+        <Navigation/>
+
+        <Routes>
+          <Route path='/' element={<Home/>} />
+          <Route path='/department' element={<Department/>} />
+          <Route path='/employee' element={<Employee/>} />
+        </Routes>
+
+      </div>
+    </BrowserRouter>
   );
 }
 

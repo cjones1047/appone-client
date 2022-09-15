@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 
-const Home = () => {
+const Navigation = () => {
 
     return(
         <Navbar bg="dark" expand="lg">
@@ -25,4 +25,4 @@ const Home = () => {
 
 }
 
-export default Home
+export default Navigation
