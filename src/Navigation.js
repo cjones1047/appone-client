@@ -6,7 +6,10 @@ const Navigation = () => {
 
     return(
         <Navbar bg="dark" expand="md">
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Toggle 
+                aria-controls="basic-navbar-nav"
+                style={{backgroundColor: 'white'}}
+            />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav>
                     <NavLink className="d-inline p-2 bg-dark text-white" to="/">

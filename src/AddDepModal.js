@@ -3,12 +3,14 @@ import { Modal, Button, Row, Col, Form } from 'react-bootstrap';
 
 const AddDepModal = (props) => {
     const {
-        onHide
+        show,
+        onHide,
+        setRefresh
     } = props
 
-    handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
-        fetch(process.env.REACT_APP_API+'department'), {
+        fetch((process.env.REACT_APP_API+'department/'), {
             method: 'POST',
             headers: {
                 'Accept':'application/json',
@@ -18,15 +20,16 @@ const AddDepModal = (props) => {
                 DepartmentId: null,
                 DepartmentName: e.target.DepartmentName.value
             })
-                .then(res => res.json())
-                .then((result) => {
-                    alert(result);
-                    },
-                    (error) => {
-                        alert('Failed');
-                    }
-                )
-        }
+        })
+            .then(res => res.json())
+            .then((result) => {
+                alert(result);
+                },
+                (error) => {
+                    alert('Failed');
+                }
+            )
+            .then(setRefresh(prev => !prev))
     }
 
     return (
@@ -36,6 +39,7 @@ const AddDepModal = (props) => {
                 aria-labelledby='
                 contained-modal-title-vcenter'
                 centered
+                show={show}
             >
                 <Modal.Header>
                     <Modal.Title
@@ -48,7 +52,9 @@ const AddDepModal = (props) => {
                     <Row>
                         <Col sm={6}>
                             <Form onSubmit={handleSubmit}>
-                                <Form.Group         controlId='DepartmentName'
+                                <Form.Group
+                                    controlId='DepartmentName'
+                                    style={{marginBottom: '10px'}}
                                 >
                                     <Form.Label>
                                         DepartmentName
@@ -80,7 +86,9 @@ const AddDepModal = (props) => {
                         Close
                     </Button>
                 </Modal.Footer>
-            </Modal>'
+            </Modal>
         </div>
     )
 }
+
+export default AddDepModal
