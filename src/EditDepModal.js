@@ -5,19 +5,21 @@ const EditDepModal = (props) => {
     const {
         show,
         onHide,
-        setRefresh
+        setRefresh,
+        depid,
+        depname
     } = props
 
     const handleSubmit = (e) => {
         e.preventDefault()
         fetch((process.env.REACT_APP_API+'department/'), {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Accept':'application/json',
                 'Content-Type':'application/json'
             },
             body: JSON.stringify({
-                DepartmentId: null,
+                DepartmentId: e.target.DepartmentId.value,
                 DepartmentName: e.target.DepartmentName.value
             })
         })
@@ -45,13 +47,29 @@ const EditDepModal = (props) => {
                     <Modal.Title
                         id="contained-modal-title-vcenter"
                     >
-                        Add Department
+                        Edit Department
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Row>
                         <Col sm={6}>
                             <Form onSubmit={handleSubmit}>
+                                <Form.Group
+                                    controlId='DepartmentId'
+                                    style={{marginBottom: '10px'}}
+                                >
+                                    <Form.Label>
+                                        DepartmentId
+                                    </Form.Label>
+                                    <Form.Control
+                                        type='text'
+                                        name='DepartmentId'
+                                        required
+                                        disabled
+                                        defaultValue={depid}
+                                        placeholder='DepartmentId'
+                                    />
+                                </Form.Group>
                                 <Form.Group
                                     controlId='DepartmentName'
                                     style={{marginBottom: '10px'}}
@@ -63,6 +81,7 @@ const EditDepModal = (props) => {
                                         type='text'
                                         name='DepartmentName'
                                         required
+                                        defaultValue={depname}
                                         placeholder='DepartmentName'
                                     />
                                 </Form.Group>
@@ -71,7 +90,7 @@ const EditDepModal = (props) => {
                                         variant='primary'
                                         type='submit'
                                     >
-                                        Add Department
+                                        Update Department
                                     </Button>
                                 </Form.Group>
                             </Form>
