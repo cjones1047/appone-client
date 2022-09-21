@@ -8,7 +8,7 @@ import EditDepModal from './EditDepModal';
 
 const Department = () => {
 
-    const [refresh, setRefresh] = useState(null)
+    const [refresh, setRefresh] = useState(true)
     const [deps, setDeps] = useState([])
     const [addModalShow, setAddModalShow] = useState(false)
     const [editModalShow, setEditModalShow] = useState(false)
@@ -24,6 +24,19 @@ const Department = () => {
     if(!deps) return (
         <Spinner/>
     )
+
+    const deleteDep = (depid) => {
+        if(window.confirm('Are you sure?')) {
+            fetch(process.env.REACT_APP_API+'department/'+depid, {
+                method: 'DELETE',
+                header: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(setRefresh(prev => !prev))
+        }
+    }
 
     return(
         <>
@@ -59,6 +72,14 @@ const Department = () => {
                                         }}
                                         >
                                             Edit
+                                        </Button>
+
+                                        <Button className='mr-2' variant='danger'
+                                        onClick={() => {
+                                            deleteDep(dep.DepartmentId)
+                                        }}
+                                        >
+                                            Delete
                                         </Button>
 
                                         <EditDepModal
